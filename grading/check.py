@@ -1,3 +1,4 @@
+import sys
 import utils
 import subprocess
 from random import randint
@@ -110,7 +111,7 @@ def check_ex3():
         wrong = []
         # factorial of 3
         test1 = [jupiterRoute, './ex3/factorial.s']
-        task = utils.execute(cmd=test1, input=b'3', timeout=5)
+        task = utils.execute(cmd=test1, input=b'3', timeout=10)
         if task.returncode != 0:
             return (0, utils.failed('runtime error'), task.stderr.decode().strip())
         output = task.stdout.decode().strip()
@@ -120,7 +121,7 @@ def check_ex3():
             wrong.append('3')
         # factorial of 7
         test2 = [jupiterRoute, './ex3/factorial.s']
-        task = utils.execute(cmd=test2, input=b'7', timeout=5)
+        task = utils.execute(cmd=test2, input=b'7', timeout=10)
         if task.returncode != 0:
             return (0, utils.failed('runtime error'), task.stderr.decode().strip())
         output = task.stdout.decode().strip()
@@ -130,7 +131,7 @@ def check_ex3():
             wrong.append('7')
         # factorial of 8
         test3 = [jupiterRoute, './ex3/factorial.s']
-        task = utils.execute(cmd=test3, input=b'8', timeout=5)
+        task = utils.execute(cmd=test3, input=b'8', timeout=10)
         if task.returncode != 0:
             return (0, utils.failed('runtime error'), task.stderr.decode().strip())
         output = task.stdout.decode().strip()
@@ -158,12 +159,12 @@ def check_ex4():
         utils.execute(cmd=['sed', '-i', '-e', replace, './ex4/list_map.s'])
         utils.execute(cmd='printf \'\nsquare:\naddi a0, a0, 1\njr ra\n\' >> ./ex4/list_map.s', shell=True)
         test = [jupiterRoute, './ex4/list_map.s']
-        task = utils.execute(cmd=test, timeout=5)
+        task = utils.execute(cmd=test, timeout=10)
         if task.returncode != 0:
             return (0, utils.failed('runtime error'), task.stderr.decode().strip())
         output = task.stdout.decode().strip()
         if '9 8 7 6 5 4 3 2 1 0 \n10 9 8 7 6 5 4 3 2 1' in output and 'Jupiter: exit(0)' in output:
-            return (20, utils.passed(), '')
+            return (60, utils.passed(), '')
         else:
             return (0, utils.failed(), '')
     except subprocess.TimeoutExpired:
@@ -209,5 +210,11 @@ def lab3_riscv():
 
 
 if __name__ == '__main__':
+    if (len(sys.argv) > 1):
+        jupiterRoute = 'jupiter'
+        print('Usando jupiter instalado segun instrucciones del lab\n')
+    else:
+        print('Usando jupiter incluido en la maquina virtual del curso\n')
+
     lab3_riscv()
     utils.fix_ownership()
