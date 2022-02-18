@@ -11,5 +11,5 @@
   }
 
   title
-  python3 grading/check.py
+  python3 grading/check.py $1
 }
