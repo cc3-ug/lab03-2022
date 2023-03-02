@@ -3,7 +3,7 @@ import utils
 import subprocess
 from random import randint
 
-jupiterRoute = '/home/student/image/bin/jupiter'
+jupiterRoute = 'jupiter'
 
 # checks ex1.txt
 def check_ex1():
@@ -172,6 +172,13 @@ def check_ex4():
     except Exception as e:
         print(e)
         return (0, utils.failed('memory limit exceeded'), '')
+    finally:
+        label = 'ms_ex3_fake_label_%s:' % ('0x%08x' % randint(0, 65535))
+        replace = 's/square:/%s/g' % label
+        utils.execute(cmd=['sed', '-i', '-e', replace, './ex4/list_map.s'])
+        utils.execute(cmd='printf \'\nsquare:\nmul a0, a0, a0\njr ra\n\' >> ./ex4/list_map.s', shell=True)
+        
+
 
 
 def lab3_riscv():

@@ -72,10 +72,11 @@ done:
   ### YOUR CODE HERE ###
   jr ra # Return to caller
 
-square:
-  mul a0 ,a0, a0
-  jr ra
 
+
+
+
+	### DO NOT CHANGE ANYTHING BELOW THIS LINE ###
 create_default_list:
   addi sp, sp, -12
   sw  ra, 0(sp)
@@ -125,3 +126,7 @@ malloc:
   li a0, 9
   ecall
   jr  ra
+  
+square:
+  mul a0 ,a0, a0
+  jr ra
