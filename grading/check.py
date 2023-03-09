@@ -206,7 +206,7 @@ def lab3_riscv():
         grade += ex3_result[0]
         grade += ex4_result[0]
         grade = round(grade)
-        grade = min(grade, 100)
+        grade = min(grade, 160)
         report = utils.report(table)
         print(report)
         if errors != '':
